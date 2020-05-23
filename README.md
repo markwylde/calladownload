@@ -15,7 +15,9 @@ npm install --save calladownload
 ## Example
 ### With callbacks
 ```javascript
-
+calladownload(`http://example.com/index.html`, '/tmp/index.html', function (error) {
+  console.log(error ? error : 'Downloaded successfully')
+})
 ```
 
 ## License
