@@ -11,7 +11,7 @@ function calladownload (sourceUrl, destinationPath, options, callback) {
   const uri = new URL(sourceUrl);
   const headers = options.headers || {};
 
-  const httpOrHttps = uri.protocol === 'https:' ? https : http;
+  const httpOrHttps = uri.protocol === 'https:' ? options.httpsAgent || https : options.httpAgent || http;
   const opts = {
     headers,
     method: 'GET',
