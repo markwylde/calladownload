@@ -1,6 +1,8 @@
+const { promisify } = require('util');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
+const righto = require('righto');
 
 function calladownload (sourceUrl, destinationPath, options, callback) {
   if (arguments.length === 3) {
@@ -55,4 +57,10 @@ function calladownload (sourceUrl, destinationPath, options, callback) {
   request.end();
 }
 
-module.exports = calladownload;
+module.exports = module.exports = function (...args) {
+  if (args[args.length - 1].constructor !== Function) {
+    return promisify(calladownload)(...args);
+  }
+
+  return calladownload(...args);
+};

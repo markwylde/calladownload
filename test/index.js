@@ -42,6 +42,20 @@ test('download from http', function * (t) {
   server.close();
 });
 
+test('download from http - promise', async function (t) {
+  t.plan(1);
+
+  const server = await righto(createServer);
+  const destinationFile = '/tmp/' + Date.now() + '.html';
+  await calladownload(`http://localhost:${server.address().port}`, destinationFile);
+
+  const result = await righto(fs.readFile, destinationFile, 'utf8');
+
+  t.equal(result, 'This is a test at /');
+
+  server.close();
+});
+
 test('download from http with header', function * (t) {
   t.plan(1);
 
